@@ -1,0 +1,63 @@
+#include <Wire.h>
+#include <Adafruit_MotorShield.h>
+
+Adafruit_MotorShield AFMS = Adafruit_MotorShield();
+Adafruit_DCMotor *baseMotor = AFMS.getMotor(1);
+Adafruit_DCMotor *clawMotor = AFMS.getMotor(4);
+Adafruit_DCMotor *upMotor = AFMS.getMotor(2);
+Adafruit_DCMotor *backMotor = AFMS.getMotor(3); 
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Adafruit motorsheild v2 - dc motor test");
+  AFMS.begin();
+}
+
+void loop() {
+baseMotor->setSpeed(25);
+clawMotor->setSpeed(15);
+backMotor->setSpeed(50);
+upMotor->setSpeed(60);
+
+//base
+Serial.print("tick");
+baseMotor->run(FORWARD);
+delay(1000);
+baseMotor->run(BRAKE);
+delay(300);
+
+//claw
+Serial.print("tock");
+clawMotor->run(BACKWARD);
+delay(800);
+clawMotor->run(BRAKE);
+delay(300);
+clawMotor->run(RELEASE);
+clawMotor->run(FORWARD);
+delay(800);
+clawMotor->run(BRAKE);
+delay(300);
+
+
+//armUP
+Serial.print("boom");
+upMotor->run(BACKWARD);                                                                                                                        
+delay(300);
+upMotor->run(BRAKE);
+delay(300);
+upMotor->run(FORWARD);
+delay(100);
+upMotor->run(BRAKE);
+delay(300);
+upMotor->run(BACKWARD);
+delay(100);
+upMotor->run(BRAKE);
+delay(300);
+
+//base
+Serial.print("tick");
+baseMotor->run(BACKWARD);
+delay(300);
+baseMotor->run(BRAKE);
+delay(300);
+}
