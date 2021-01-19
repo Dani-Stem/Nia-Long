@@ -1,0 +1,21 @@
+#include <Servo.h>
+
+Servo servo;
+int pos = 10;
+
+void setup() {
+  servo.attach(8);
+  servo.write(180);
+  delay(40);
+}
+
+void loop() {
+  for (pos = 0; pos <=90; pos++){
+        servo.write(pos);
+        delay(10);
+        }
+  for (pos = 90; pos >= 0; pos--){
+        servo.write(pos);
+        delay(10);
+        }
+}
