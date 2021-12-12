@@ -1,0 +1,52 @@
+#include <Servo.h>
+
+Servo x_servo, y_servo; 
+
+int a;
+int horizontal = 45;
+int vertical = 45;
+
+void setup() {
+ 
+  x_servo.attach(3);  
+  y_servo.attach(9);  
+  Serial.begin(9600); 
+  delay(900);
+}
+
+void loop() 
+{
+  if(Serial.available()>0) 
+  {
+      a=Serial.read();                  
+      if(a=='1')                       
+       {                                
+       horizontal=horizontal+5;
+       x_servo.write(horizontal);
+       delay(20);
+       Serial.println("SHIFTING RIGHT...");
+       }
+      else if(a=='2')                 
+      {
+       horizontal=horizontal-5;
+       x_servo.write(horizontal);
+       delay(20);
+       Serial.println("SHIFTING LEFT...");
+      }
+      
+      else if(a=='3')               
+      {
+       vertical=vertical+5;
+       y_servo.write(vertical);
+       delay(20);
+       Serial.println("SHIFTING UP...");
+      }
+      else if(a=='4')                
+      {
+       vertical=vertical-5;
+       y_servo.write(vertical);
+       delay(20);
+       Serial.println("SHIFTING DOWN...");
+      }
+  }
+}
